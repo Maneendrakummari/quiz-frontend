@@ -4,7 +4,7 @@ const QuizResults = () => {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/questions/results")
+fetch("https://quizapplication-5.onrender.com/api/questions/results")
       .then((res) => res.json())
       .then((data) => setResults(data))
       .catch((err) => console.error("Error loading quiz results:", err));
