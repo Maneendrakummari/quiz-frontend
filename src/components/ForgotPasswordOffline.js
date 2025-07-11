@@ -21,9 +21,9 @@ function ForgotPasswordOffline() {
     setMessage("");
     setError("");
 
-    try {
+     try {
       const res = await axios.post(
-        "http://localhost:8080/api/auth/reset-password-offline",
+        "https://quizapplication-5.onrender.com/api/auth/reset-password-offline",
         form
       );
       setMessage(res.data);
