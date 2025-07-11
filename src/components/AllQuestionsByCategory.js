@@ -13,7 +13,7 @@ function AllQuestionsByCategory() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/questions/${category}/limit/${limit}`)
+     .get(https://quizapplication-5.onrender.com/api/questions/${category}/limit/${limit})
       .then((response) => {
         setQuestions(response.data);
       })
