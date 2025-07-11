@@ -36,7 +36,7 @@ function AllQuestionsByCategory() {
 
           {q.imageUrl && q.imageUrl !== "none" && (
             <img
-              src={`http://localhost:8080${q.imageUrl}`}
+              src={`https://quizapplication-5.onrender.com${q.imageUrl}`}
               alt="question"
               style={styles.image}
             />
