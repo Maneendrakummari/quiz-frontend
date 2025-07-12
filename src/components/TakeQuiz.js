@@ -17,7 +17,7 @@ function TakeQuiz() {
   // Fetch categories
   useEffect(() => {
     axios
-      .get(" https://quizapplication-5.onrender.com/api/questions")
+      .get(" https://quizapplication-6.onrender.com/api/questions")
       .then((response) => {
         const uniqueCategories = [
           ...new Set(response.data.map((q) => q.category).filter(Boolean)),
@@ -31,7 +31,7 @@ function TakeQuiz() {
   useEffect(() => {
     if (selectedCategory) {
       axios
-        .get(` https://quizapplication-5.onrender.com/api/questions/category/${selectedCategory}`)
+        .get(` https://quizapplication-6.onrender.com/api/questions/category/${selectedCategory}`)
         .then((response) => {
           setQuestions(response.data);
           setAnswers({});
@@ -73,7 +73,7 @@ function TakeQuiz() {
     };
 
     axios
-      .post(" https://quizapplication-5.onrender.com/api/questions/submit", submission)
+      .post(" https://quizapplication-6.onrender.com/api/questions/submit", submission)
       .then((response) => {
         setResult(response.data);
         setSubmitted(true);
@@ -141,7 +141,7 @@ function TakeQuiz() {
 
               {q.imageUrl && q.imageUrl !== "none" && (
                 <img
-                  src={` https://quizapplication-5.onrender.com${q.imageUrl}`}
+                  src={` https://quizapplication-6.onrender.com${q.imageUrl}`}
                   alt="Question"
                   style={styles.image}
                 />
