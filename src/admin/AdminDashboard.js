@@ -29,7 +29,7 @@ const AdminDashboard = () => {
     };
 
     axios
-        .get("https://quizapplication-5.onrender.com/api/admin/users", { headers })
+        .get("https://quizapplication-6.onrender.com/api/admin/users", { headers })
       .then((res) => setUsers(res.data))
       .catch((err) => {
         console.error(err);
@@ -37,7 +37,7 @@ const AdminDashboard = () => {
       });
 
     axios
-       .get("https://quizapplication-5.onrender.com/api/admin/results", { headers })
+       .get("https://quizapplication-6.onrender.com/api/admin/results", { headers })
       .then((res) => setResults(res.data))
       .catch((err) => {
         console.error(err);
@@ -53,7 +53,7 @@ const AdminDashboard = () => {
     };
 
     axios
-      .delete(`https://quizapplication-5.onrender.com/api/admin/users/${id}`, { headers })
+      .delete(`https://quizapplication-6.onrender.com/api/admin/users/${id}`, { headers })
       .then(() => {
         setUsers((prev) => prev.filter((u) => u.id !== id));
         alert("User deleted.");
