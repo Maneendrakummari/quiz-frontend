@@ -28,7 +28,7 @@ function QuizPage() {
     }
 
     axios
-  .get(`https://quizapplication-5.onrender.com/api/questions/category/${category}/limit/${limit}`)
+  .get(`https://quizapplication-6.onrender.com/api/questions/category/${category}/limit/${limit}`)
 
       .then((res) => {
         const data = res.data;
@@ -56,7 +56,7 @@ function QuizPage() {
     };
 
    axios
-  .post("https://quizapplication-5.onrender.com/api/questions/submit", payload)
+  .post("https://quizapplication-6.onrender.com/api/questions/submit", payload)
 
       .then((res) => {
         setResult(res.data);
@@ -123,7 +123,7 @@ function QuizPage() {
 
               {q.imageUrl && q.imageUrl !== "none" && (
                 <img
-                  src={`https://quizapplication-5.onrender.com${q.imageUrl}`}
+                  src={`https://quizapplication-6.onrender.com${q.imageUrl}`}
                   alt="Question"
                   style={styles.image}
                 />
