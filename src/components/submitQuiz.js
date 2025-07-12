@@ -13,7 +13,7 @@ const submitQuiz = (answers, setSubmitted, setResult) => {
   console.log("📤 Submitting:", submission);
 
   axios
-    .post("https://quizapplication-5.onrender.com/api/questions/submit", submission)
+    .post("https://quizapplication-6.onrender.com/api/questions/submit", submission)
     .then((res) => {
       console.log("✅ Submitted successfully:", res.data);
       setResult(res.data);
