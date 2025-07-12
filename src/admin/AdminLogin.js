@@ -13,7 +13,7 @@ const AdminLogin = () => {
     setError("");
 
     axios
-      .post("https://quizapplication-5.onrender.com/api/admin/login", { username, password })
+      .post("https://quizapplication-6.onrender.com/api/admin/login", { username, password })
       .then((res) => {
         localStorage.setItem("adminLoggedIn", "true");
         localStorage.setItem("adminAuth", res.data.token); // optional token
