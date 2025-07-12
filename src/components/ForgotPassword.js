@@ -17,7 +17,7 @@ function ForgotPassword() {
     setError("");
     setMessage("");
     try {
-      const res = await axios.post("https://quizapplication-5.onrender.com/api/auth/forgot-password", {
+      const res = await axios.post("https://quizapplication-6.onrender.com/api/auth/forgot-password", {
         email: form.email,
       });
       setMessage(res.data); // Expected: "OTP sent to your email"
@@ -33,7 +33,7 @@ function ForgotPassword() {
     setError("");
     setMessage("");
    try {
-      await axios.post("https://quizapplication-5.onrender.com/api/auth/reset-password", {
+      await axios.post("https://quizapplication-6.onrender.com/api/auth/reset-password", {
         email: form.email,
         otp: form.otp,
         newPassword: form.newPassword,
