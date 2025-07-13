@@ -195,7 +195,7 @@ function QuizPage() {
           </button>
 
           <button
-            onClick={() => navigate("/quiz")}
+            onClick={() => navigate("/dashboard")} // ✅ Correct Home Navigation
             style={{
               ...styles.button,
               backgroundColor: "#3498db",
