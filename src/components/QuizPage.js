@@ -18,7 +18,6 @@ function QuizPage() {
   const category = query.get("category") || "java";
   const limit = 20;
 
-  // ✅ Ensure quiz loads ONLY if user is logged in
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     if (!userId) {
@@ -28,15 +27,14 @@ function QuizPage() {
     }
 
     axios
-  .get(`https://quizapplication-6.onrender.com/api/questions/category/${category}/limit/${limit}`)
-
+      .get(`https://quizapplication-6.onrender.com/api/questions/category/${category}/limit/${limit}`)
       .then((res) => {
         const data = res.data;
         setQuestions(data);
         setAnswers({});
         setSubmitted(false);
         setResult(null);
-        setTimeLeft(data.length * 60); // 1 minute per question
+        setTimeLeft(data.length * 60);
       })
       .catch((err) => {
         console.error("❌ Failed to load questions:", err);
@@ -55,9 +53,8 @@ function QuizPage() {
       })),
     };
 
-   axios
-  .post("https://quizapplication-6.onrender.com/api/questions/submit", payload)
-
+    axios
+      .post("https://quizapplication-6.onrender.com/api/questions/submit", payload)
       .then((res) => {
         setResult(res.data);
         setSubmitted(true);
@@ -102,8 +99,7 @@ function QuizPage() {
       {!submitted && questions.length > 0 && (
         <>
           <div style={styles.timer}>
-            ⏰ Time Left: {Math.floor(timeLeft / 60)}:
-            {String(timeLeft % 60).padStart(2, "0")}
+            ⏰ Time Left: {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, "0")}
           </div>
 
           <div style={styles.progressBarContainer}>
@@ -150,13 +146,9 @@ function QuizPage() {
             style={{
               ...styles.button,
               backgroundColor:
-                Object.keys(answers).length < questions.length
-                  ? "#bdc3c7"
-                  : "#2980b9",
+                Object.keys(answers).length < questions.length ? "#bdc3c7" : "#2980b9",
               cursor:
-                Object.keys(answers).length < questions.length
-                  ? "not-allowed"
-                  : "pointer",
+                Object.keys(answers).length < questions.length ? "not-allowed" : "pointer",
             }}
           >
             🚀 Submit
@@ -168,22 +160,11 @@ function QuizPage() {
         <div style={styles.resultBox}>
           {result.percentage >= 80 && <Confetti width={width} height={height} />}
           <h3>✅ Quiz Result:</h3>
-          <p>
-            <strong>Total Questions:</strong> {result.totalQuestions}
-          </p>
-          <p>
-            <strong>Correct Answers:</strong> {result.correctAnswers}
-          </p>
-          <p>
-            <strong>Score:</strong> {result.percentage.toFixed(2)}%
-          </p>
-          <p>
-            <strong>Performance:</strong>{" "}
-            {result.percentage >= 80
-              ? "🌟 Excellent!"
-              : result.percentage >= 50
-              ? "👍 Good effort!"
-              : "💪 Keep practicing!"}
+          <p><strong>Total Questions:</strong> {result.totalQuestions}</p>
+          <p><strong>Correct Answers:</strong> {result.correctAnswers}</p>
+          <p><strong>Score:</strong> {result.percentage.toFixed(2)}%</p>
+          <p><strong>Performance:</strong> 
+            {result.percentage >= 80 ? "🌟 Excellent!" : result.percentage >= 50 ? "👍 Good effort!" : "💪 Keep practicing!"}
           </p>
 
           <button
@@ -211,6 +192,17 @@ function QuizPage() {
             }}
           >
             🚪 Logout
+          </button>
+
+          <button
+            onClick={() => navigate("/quiz")}
+            style={{
+              ...styles.button,
+              backgroundColor: "#3498db",
+              marginTop: "15px",
+            }}
+          >
+            🏠 Home
           </button>
         </div>
       )}
