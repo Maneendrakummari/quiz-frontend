@@ -15,14 +15,20 @@ const AdminLogin = () => {
     axios
       .post("https://quizapplication-6.onrender.com/api/admin/login", { username, password })
       .then((res) => {
-        localStorage.setItem("adminLoggedIn", "true");
-        localStorage.setItem("adminAuth", res.data.token); // optional token
-       navigate("/AdminDashboard");
- // ✅ Capital D
+        if (res.data.includes("Welcome Admin")) {
+          localStorage.setItem("adminLoggedIn", "true");
+          navigate("/AdminDashboard");
+        } else {
+          setError("❌ Unauthorized. Invalid response.");
+        }
       })
       .catch((err) => {
         console.error(err);
-        setError("❌ Unauthorized. Invalid credentials.");
+        if (err.response && err.response.status === 401) {
+          setError("❌ Unauthorized. Invalid credentials.");
+        } else {
+          setError("⚠️ Something went wrong.");
+        }
       });
   };
 
