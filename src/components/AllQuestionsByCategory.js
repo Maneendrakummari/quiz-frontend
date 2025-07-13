@@ -12,8 +12,8 @@ function AllQuestionsByCategory() {
   const limit = parseInt(query.get("limit")) || 30;
 
   useEffect(() => {
-    axios
-     .get(https://quizapplication-5.onrender.com/api/questions/${category}/limit/${limit})
+    axios.get(`https://quizapplication-5.onrender.com/api/questions/${category}/limit/${limit}`)
+
       .then((response) => {
         setQuestions(response.data);
       })
