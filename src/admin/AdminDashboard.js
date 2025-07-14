@@ -1,5 +1,3 @@
-// src/admin/pages/AdminDashboard.js
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -9,27 +7,22 @@ const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [results, setResults] = useState([]);
 
-  const token = localStorage.getItem("adminAuth");
-
   const handleLogout = () => {
     localStorage.removeItem("adminLoggedIn");
-    localStorage.removeItem("adminAuth");
     navigate("/admin/login");
   };
 
   useEffect(() => {
-    if (!token) {
+    const isLoggedIn = localStorage.getItem("adminLoggedIn");
+
+    if (!isLoggedIn) {
       alert("Session expired. Please log in again.");
       navigate("/admin/login");
       return;
     }
 
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-
     axios
-        .get("https://quizapplication-6.onrender.com/api/admin/users", { headers })
+      .get("http://localhost:8080/api/admin/users")
       .then((res) => setUsers(res.data))
       .catch((err) => {
         console.error(err);
@@ -37,23 +30,19 @@ const AdminDashboard = () => {
       });
 
     axios
-       .get("https://quizapplication-6.onrender.com/api/admin/results", { headers })
+      .get("http://localhost:8080/api/admin/results")
       .then((res) => setResults(res.data))
       .catch((err) => {
         console.error(err);
         alert("Failed to fetch results.");
       });
-  }, [navigate, token]);
+  }, [navigate]);
 
   const handleDeleteUser = (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
 
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-
     axios
-      .delete(`https://quizapplication-6.onrender.com/api/admin/users/${id}`, { headers })
+      .delete(`http://localhost:8080/api/admin/users/${id}`)
       .then(() => {
         setUsers((prev) => prev.filter((u) => u.id !== id));
         alert("User deleted.");
@@ -82,25 +71,35 @@ const AdminDashboard = () => {
               <th style={styles.th}>ID</th>
               <th style={styles.th}>Username</th>
               <th style={styles.th}>Email</th>
+              <th style={styles.th}>Status</th>
               <th style={styles.th}>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user.id} style={styles.tr}>
-                <td style={styles.td}>{user.id}</td>
-                <td style={styles.td}>{user.username}</td>
-                <td style={styles.td}>{user.email}</td>
-                <td style={styles.td}>
-                  <button
-                    onClick={() => handleDeleteUser(user.id)}
-                    style={styles.deleteBtn}
-                  >
-                    🗑️ Delete
-                  </button>
+            {users.length === 0 ? (
+              <tr>
+                <td colSpan={5} style={{ textAlign: "center", padding: "20px" }}>
+                  No users found.
                 </td>
               </tr>
-            ))}
+            ) : (
+              users.map((user) => (
+                <tr key={user.id} style={styles.tr}>
+                  <td style={styles.td}>{user.id}</td>
+                  <td style={styles.td}>{user.username}</td>
+                  <td style={styles.td}>{user.email}</td>
+                  <td style={styles.td}>{user.status}</td>
+                  <td style={styles.td}>
+                    <button
+                      onClick={() => handleDeleteUser(user.id)}
+                      style={styles.deleteBtn}
+                    >
+                      🗑️ Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </section>
@@ -120,7 +119,10 @@ const AdminDashboard = () => {
                 Score: {res.correctAnswers} / {res.totalQuestions}
               </p>
               <p style={styles.resultPercentage}>
-                Percentage: {Number(res.scorePercentage).toFixed(2)}%
+                Percentage:{" "}
+                {res.percentage !== null && res.percentage !== undefined
+                  ? Number(res.percentage).toFixed(2) + "%"
+                  : "0.00%"}
               </p>
             </div>
           ))}
