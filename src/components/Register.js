@@ -33,7 +33,8 @@ function Register() {
     setSuccess("");
 
     try {
-     await axios.post("https://quizapplication-6.onrender.com/api/auth/register", form);
+ await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/register`, form);
+
 
       setSuccess("✅ Registered successfully!");
       setTimeout(() => navigate("/login"), 2000);
