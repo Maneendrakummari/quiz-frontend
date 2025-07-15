@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import TakeQuiz from './TakeQuiz';
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 
@@ -14,10 +13,12 @@ function TakeQuiz() {
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
   const { width, height } = useWindowSize();
 
+  const BASE_URL = process.env.REACT_APP_API_URL;
+
   // Fetch categories
   useEffect(() => {
     axios
-      .get(" https://quizapplication-6.onrender.com/api/questions")
+      .get(`${BASE_URL}/api/questions`)
       .then((response) => {
         const uniqueCategories = [
           ...new Set(response.data.map((q) => q.category).filter(Boolean)),
@@ -25,13 +26,13 @@ function TakeQuiz() {
         setCategories(uniqueCategories);
       })
       .catch((error) => console.error("Failed to load categories", error));
-  }, []);
+  }, [BASE_URL]);
 
   // Fetch questions on category change
   useEffect(() => {
     if (selectedCategory) {
       axios
-        .get(` https://quizapplication-6.onrender.com/api/questions/category/${selectedCategory}`)
+        .get(`${BASE_URL}/api/questions/category/${selectedCategory}`)
         .then((response) => {
           setQuestions(response.data);
           setAnswers({});
@@ -41,7 +42,7 @@ function TakeQuiz() {
         })
         .catch((error) => console.error("Failed to load questions", error));
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, BASE_URL]);
 
   // Timer countdown
   useEffect(() => {
@@ -73,7 +74,7 @@ function TakeQuiz() {
     };
 
     axios
-      .post(" https://quizapplication-6.onrender.com/api/questions/submit", submission)
+      .post(`${BASE_URL}/api/questions/submit`, submission)
       .then((response) => {
         setResult(response.data);
         setSubmitted(true);
@@ -141,7 +142,7 @@ function TakeQuiz() {
 
               {q.imageUrl && q.imageUrl !== "none" && (
                 <img
-                  src={` https://quizapplication-6.onrender.com${q.imageUrl}`}
+                  src={`${BASE_URL}${q.imageUrl}`}
                   alt="Question"
                   style={styles.image}
                 />
