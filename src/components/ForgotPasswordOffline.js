@@ -23,9 +23,10 @@ function ForgotPasswordOffline() {
 
      try {
       const res = await axios.post(
-        "https://quizapplication-6.onrender.com/api/auth/reset-password-offline",
-        form
-      );
+  `${process.env.REACT_APP_API_URL}/api/auth/reset-password-offline`,
+  form
+);
+
       setMessage(res.data);
       setTimeout(() => navigate("/login"), 2000); // Redirect to login after 2s
     } catch (err) {
