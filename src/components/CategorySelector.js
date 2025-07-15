@@ -11,7 +11,8 @@ function CategorySelector() {
 
   useEffect(() => {
     axios
-       .get("https://quizapplication-6.onrender.com/api/questions")
+   .get(`${process.env.REACT_APP_API_URL}/api/questions`)
+
       .then((res) => {
         const uniqueCategories = [
           ...new Set(
