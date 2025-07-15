@@ -12,8 +12,9 @@ const submitQuiz = (answers, setSubmitted, setResult) => {
 
   console.log("📤 Submitting:", submission);
 
-  axios
-    .post("https://quizapplication-6.onrender.com/api/questions/submit", submission)
+ axios
+  .post(`${process.env.REACT_APP_API_URL}/api/questions/submit`, submission)
+
     .then((res) => {
       console.log("✅ Submitted successfully:", res.data);
       setResult(res.data);
