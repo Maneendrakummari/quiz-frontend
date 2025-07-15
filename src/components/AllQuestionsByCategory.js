@@ -12,7 +12,8 @@ function AllQuestionsByCategory() {
   const limit = parseInt(query.get("limit")) || 30;
 
   useEffect(() => {
-    axios.get(`https://quizapplication-5.onrender.com/api/questions/${category}/limit/${limit}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/questions/${category}/limit/${limit}`)
+
 
       .then((response) => {
         setQuestions(response.data);
@@ -35,11 +36,12 @@ function AllQuestionsByCategory() {
           </p>
 
           {q.imageUrl && q.imageUrl !== "none" && (
-            <img
-              src={`https://quizapplication-5.onrender.com${q.imageUrl}`}
-              alt="question"
-              style={styles.image}
-            />
+           <img
+  src={`${process.env.REACT_APP_API_URL}${q.imageUrl}`}
+  alt="question"
+  style={styles.image}
+/>
+
           )}
 
           <ul style={styles.optionsList}>
