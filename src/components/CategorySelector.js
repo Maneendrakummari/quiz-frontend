@@ -34,11 +34,12 @@ function CategorySelector() {
     navigate(`/quiz?category=${category}&limit=20`);
   };
 
-  const handleLogout = () => {
+   const handleLogout = () => {
     localStorage.removeItem("userId");
+    localStorage.removeItem("username");
+    localStorage.removeItem("status");
     navigate("/login");
   };
-
   return (
     <div style={styles.wrapper}>
       <div style={styles.header}>
