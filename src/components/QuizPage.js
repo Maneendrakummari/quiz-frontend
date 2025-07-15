@@ -27,7 +27,9 @@ function QuizPage() {
     }
 
     axios
-      .get(`https://quizapplication-6.onrender.com/api/questions/category/${category}/limit/${limit}`)
+      .get(
+        `${process.env.REACT_APP_API_URL}/api/questions/category/${category}/limit/${limit}`
+      )
       .then((res) => {
         const data = res.data;
         setQuestions(data);
@@ -54,7 +56,10 @@ function QuizPage() {
     };
 
     axios
-      .post("https://quizapplication-6.onrender.com/api/questions/submit", payload)
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/questions/submit`,
+        payload
+      )
       .then((res) => {
         setResult(res.data);
         setSubmitted(true);
@@ -99,7 +104,8 @@ function QuizPage() {
       {!submitted && questions.length > 0 && (
         <>
           <div style={styles.timer}>
-            ⏰ Time Left: {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, "0")}
+            ⏰ Time Left: {Math.floor(timeLeft / 60)}:
+            {String(timeLeft % 60).padStart(2, "0")}
           </div>
 
           <div style={styles.progressBarContainer}>
@@ -119,7 +125,7 @@ function QuizPage() {
 
               {q.imageUrl && q.imageUrl !== "none" && (
                 <img
-                  src={`https://quizapplication-6.onrender.com${q.imageUrl}`}
+                  src={`${process.env.REACT_APP_API_URL}${q.imageUrl}`}
                   alt="Question"
                   style={styles.image}
                 />
@@ -146,9 +152,13 @@ function QuizPage() {
             style={{
               ...styles.button,
               backgroundColor:
-                Object.keys(answers).length < questions.length ? "#bdc3c7" : "#2980b9",
+                Object.keys(answers).length < questions.length
+                  ? "#bdc3c7"
+                  : "#2980b9",
               cursor:
-                Object.keys(answers).length < questions.length ? "not-allowed" : "pointer",
+                Object.keys(answers).length < questions.length
+                  ? "not-allowed"
+                  : "pointer",
             }}
           >
             🚀 Submit
@@ -158,13 +168,26 @@ function QuizPage() {
 
       {submitted && result && (
         <div style={styles.resultBox}>
-          {result.percentage >= 80 && <Confetti width={width} height={height} />}
+          {result.percentage >= 80 && (
+            <Confetti width={width} height={height} />
+          )}
           <h3>✅ Quiz Result:</h3>
-          <p><strong>Total Questions:</strong> {result.totalQuestions}</p>
-          <p><strong>Correct Answers:</strong> {result.correctAnswers}</p>
-          <p><strong>Score:</strong> {result.percentage.toFixed(2)}%</p>
-          <p><strong>Performance:</strong> 
-            {result.percentage >= 80 ? "🌟 Excellent!" : result.percentage >= 50 ? "👍 Good effort!" : "💪 Keep practicing!"}
+          <p>
+            <strong>Total Questions:</strong> {result.totalQuestions}
+          </p>
+          <p>
+            <strong>Correct Answers:</strong> {result.correctAnswers}
+          </p>
+          <p>
+            <strong>Score:</strong> {result.percentage.toFixed(2)}%
+          </p>
+          <p>
+            <strong>Performance:</strong>{" "}
+            {result.percentage >= 80
+              ? "🌟 Excellent!"
+              : result.percentage >= 50
+              ? "👍 Good effort!"
+              : "💪 Keep practicing!"}
           </p>
 
           <button
@@ -195,7 +218,7 @@ function QuizPage() {
           </button>
 
           <button
-            onClick={() => navigate("/dashboard")} // ✅ Correct Home Navigation
+            onClick={() => navigate("/dashboard")}
             style={{
               ...styles.button,
               backgroundColor: "#3498db",
