@@ -9,7 +9,7 @@ function AllQuestionsByCategory() {
   // Read category and limit from query params (e.g., ?category=java&limit=30)
   const query = new URLSearchParams(location.search);
   const category = query.get("category") || "java";
-  const limit = parseInt(query.get("limit")) || 30;
+  const limit = parseInt(query.get("limit")) || 20;
 
   useEffect(() => {
     axios
