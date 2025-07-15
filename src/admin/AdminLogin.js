@@ -13,7 +13,8 @@ const AdminLogin = () => {
     setError("");
 
     axios
-      .post("https://quizapplication-6.onrender.com/api/admin/login", { username, password })
+  .post(`${process.env.REACT_APP_API_URL}/api/admin/login`, { username, password })
+
       .then((res) => {
         if (res.data.includes("Welcome Admin")) {
           localStorage.setItem("adminLoggedIn", "true");
