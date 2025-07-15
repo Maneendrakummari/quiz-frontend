@@ -21,16 +21,16 @@ const AdminDashboard = () => {
       return;
     }
 
-    axios
-      .get("http://localhost:8080/api/admin/users")
+   axios.get(`${process.env.REACT_APP_API_URL}/api/admin/users`)
+
       .then((res) => setUsers(res.data))
       .catch((err) => {
         console.error(err);
         alert("Failed to fetch users.");
       });
 
-    axios
-      .get("http://localhost:8080/api/admin/results")
+    axios.get(`${process.env.REACT_APP_API_URL}/api/admin/results`)
+
       .then((res) => setResults(res.data))
       .catch((err) => {
         console.error(err);
@@ -41,8 +41,8 @@ const AdminDashboard = () => {
   const handleDeleteUser = (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
 
-    axios
-      .delete(`http://localhost:8080/api/admin/users/${id}`)
+   axios.delete(`${process.env.REACT_APP_API_URL}/api/admin/users/${id}`)
+
       .then(() => {
         setUsers((prev) => prev.filter((u) => u.id !== id));
         alert("User deleted.");
